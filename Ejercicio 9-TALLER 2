@@ -1,0 +1,72 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    double saldo;
+
+    cout << "Ingrese el saldo inicial: ";
+    cin >> saldo;
+
+    // Saldo inicial
+    if (saldo < 0) {
+        cout << "Error: El saldo inicial no puede ser negativo.\n";
+    } 
+    else {
+        int opcion;
+        
+        // Mostrar menú
+        cout << "\n--- MENU DEL CAJERO ---\n";
+        cout << "1. Consultar saldo\n";
+        cout << "2. Retirar dinero\n";
+        cout << "3. Consignar dinero\n";
+        cout << "Elija una opcion: ";
+        cin >> opcion;
+
+        // Opción elegida
+        switch (opcion) {
+            case 1:
+                cout << "Su saldo actual es: $" << saldo << "\n";
+                break;
+
+            case 2: {
+                double montoRetiro;
+                cout << "Ingrese el monto a retirar: ";
+                cin >> montoRetiro;
+
+                if (montoRetiro <= 0) {
+                    cout << "Error: El monto a retirar debe ser mayor a cero.\n";
+                } 
+                else if (montoRetiro > saldo) {
+                    cout << "Error: Fondos insuficientes. El monto supera su saldo actual.\n";
+                } 
+                else {
+                    saldo = saldo - montoRetiro;
+                    cout << "Retiro exitoso. Su nuevo saldo es: $" << saldo << "\n";
+                }
+                break;
+            }
+
+            case 3: {
+                double montoConsignacion;
+                cout << "Ingrese el monto a consignar: ";
+                cin >> montoConsignacion;
+
+                if (montoConsignacion <= 0) {
+                    cout << "Error: El monto a consignar debe ser mayor a cero.\n";
+                } 
+                else {
+                    saldo = saldo + montoConsignacion;
+                    cout << "Consignacion exitosa. Su nuevo saldo es: $" << saldo << "\n";
+                }
+                break;
+            }
+
+            default:
+                cout << "Error: La opcion ingresada no es valida.\n";
+                break;
+        }
+    }
+
+    return 0;
+}
