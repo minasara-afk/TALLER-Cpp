@@ -1,0 +1,47 @@
+#include <iostream>
+#include <cmath> // Necesaria para la función sqrt() (raíz cuadrada)
+
+using namespace std;
+
+int main() {
+    double a, b, c;
+
+    cout << "Ingrese el coeficiente a: ";
+    cin >> a;
+    cout << "Ingrese el coeficiente b: ";
+    cin >> b;
+    cout << "Ingrese el coeficiente c: ";
+    cin >> c;
+
+    // Ver si a y b son cero
+    if (a == 0 && b == 0) {
+        cout << "No es una ecuacion de primer ni de segundo grado.\n";
+    } 
+    // Si solo a vale cero, es una ecuación lineal (bx + c = 0)
+    else if (a == 0) {
+        double x = -c / b;
+        cout << "Es una ecuacion lineal. El valor de x es: " << x << "\n";
+    } 
+    // Si a es distinto de cero, es una ecuación de segundo grado
+    else {
+        double discriminante = (b * b) - (4 * a * c);
+
+        if (discriminante > 0) {
+            double raiz1 = (-b + sqrt(discriminante)) / (2 * a);
+            double raiz2 = (-b - sqrt(discriminante)) / (2 * a);
+            cout << "El discriminante es positivo. Las dos raices reales son:\n";
+            cout << "x1 = " << raiz1 << "\n";
+            cout << "x2 = " << raiz2 << "\n";
+        } 
+        else if (discriminante == 0) {
+            double raiz_unica = -b / (2 * a);
+            cout << "El discriminante es cero. La unica raiz real es:\n";
+            cout << "x = " << raiz_unica << "\n";
+        } 
+        else {
+            cout << "El discriminante es negativo. Las raices son complejas.\n";
+        }
+    }
+
+    return 0;
+}
