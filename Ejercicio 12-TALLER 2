@@ -1,0 +1,63 @@
+#include <iostream>
+#include <cstdlib> 
+
+using namespace std;
+
+int main() {
+    float ingreso, deuda, relacion, capacidad;
+    int edad, historial;
+
+    // Pedir los datos
+    cout << "Ingresa el ingreso mensual: ";
+    cin >> ingreso;
+    
+    cout << "Ingresa la deuda mensual: ";
+    cin >> deuda;
+    
+    cout << "Ingresa la edad: ";
+    cin >> edad;
+    
+    cout << "Tiene historial crediticio? (1 para si, 0 para no): ";
+    cin >> historial;
+
+    // --- VALIDACIONES ---
+    if (ingreso <= 0) {
+        cout << "Error: El ingreso mensual debe ser positivo (mayor que cero).\n";
+    } 
+    else if (deuda < 0) {
+        cout << "Error: La deuda mensual no puede ser negativa.\n";
+    } 
+    else if (edad < 18 || edad > 100) {
+        cout << "Error: La edad no es valida (debe ser entre 18 y 100 anios).\n";
+    } 
+    else if (historial != 0 && historial != 1) {
+        cout << "Error: El historial solo puede ser 1 (si) o 0 (no).\n";
+    } 
+    else {
+        // --- CALCULOS  ---
+        
+        relacion = deuda / ingreso;
+        capacidad = ingreso - deuda;
+        
+        cout << "\n--- Resultados del analisis ---\n";
+        cout << "Relacion deuda/ingreso: " << relacion << "\n";
+        cout << "Capacidad de pago: $" << capacidad << "\n";
+
+        // Clasificar el riesgo
+        if (relacion > 0.5 || capacidad < 0) {
+            cout << "Nivel de riesgo: ALTO\n";
+        } 
+        else if (relacion <= 0.3 && edad >= 25 && historial == 1) {
+            cout << "Nivel de riesgo: BAJO\n";
+        } 
+        else {
+            cout << "Nivel de riesgo: MEDIO\n";
+        }
+    }
+
+    // Pausa para poder ver los resultados 
+    cout << "\n";
+    system("pause");
+
+    return 0;
+}
