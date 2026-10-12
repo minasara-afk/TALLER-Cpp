@@ -4,64 +4,56 @@
 using namespace std;
 
 int main() {
-    int dia, mes, anio;
+    int dia, mes, anio, dias_mes;
 
-    cout << "Ingrese el dia: ";
+    // Pedir los datos
+    cout << "Ingresa el dia: ";
     cin >> dia;
-    cout << "Ingrese el mes (1-12): ";
+    
+    cout << "Ingresa el mes (1-12): ";
     cin >> mes;
-    cout << "Ingrese el anio: ";
+    
+    cout << "Ingresa el anio: ";
     cin >> anio;
 
-    //  el año debe ser positivo
+    // 1. Ver que el año y el mes tengan sentido antes de hacer cálculos
     if (anio <= 0) {
         cout << "Error: El anio debe ser un numero positivo.\n";
     } 
-    //  el mes debe existir (estar entre 1 y 12)
     else if (mes < 1 || mes > 12) {
-        cout << "Error: El mes ingresado no es valido.\n";
+        cout << "Error: El mes no existe (debe ser del 1 al 12).\n";
     } 
     else {
-        int diasMes = 0;
+        // Revisar si el año es bisiesto
+        bool esBisiesto = (anio % 4 == 0 && anio % 100 != 0) || (anio % 400 == 0);
 
-        // la cantidad de días del mes usando switch
+        // Ver cuántos días tiene el mes que metieron usando switch
         switch (mes) {
-            // Meses con 31 días
             case 1: case 3: case 5: case 7: case 8: case 10: case 12:
-                diasMes = 31;
+                dias_mes = 31;
                 break;
-                
-            // Meses con 30 días
             case 4: case 6: case 9: case 11:
-                diasMes = 30;
+                dias_mes = 30;
                 break;
-                
-            // Febrero (Mes 2)
-            case 2: {
-                // Un año es bisiesto si es múltiplo de 4, excepto si es múltiplo de 100, 
-                // a menos que también sea múltiplo de 400.
-                bool esBisiesto = (anio % 4 == 0 && anio % 100 != 0) || (anio % 400 == 0);
-                
-                // asignar 29 o 28 días
-                diasMes = esBisiesto ? 29 : 28;
+            case 2:
+                // Usamos el operador ternario para decidir los dias de febrero
+                // Si es bisiesto, le asigna 29, si no, le asigna 28
+                dias_mes = (esBisiesto) ? 29 : 28;
                 break;
-            }
         }
 
-        // el día debe estar entre 1 y el máximo de días de ese mes
-        if (dia < 1 || dia > diasMes) {
-            cout << "Error: El dia no es valido. Para el mes " << mes << " del anio " << anio 
-                 << ", el dia debe estar entre 1 y " << diasMes << ".\n";
-        } 
-        else {
-            cout << "\nLa fecha ingresada es VALIDA.\n";
-            cout << "El mes " << mes << " tiene " << diasMes << " dias.\n";
+        //  Ver si el día coincide con el mes y el año
+        if (dia >= 1 && dia <= dias_mes) {
+            cout << "La fecha es VALIDA.\n";
+            cout << "El mes " << mes << " tiene " << dias_mes << " dias.\n";
+        } else {
+            cout << "Error: Fecha invalida. El dia " << dia << " no cuadra. Ese mes solo tiene hasta " << dias_mes << " dias.\n";
         }
     }
 
+    // Pausar para poder leer el resultado
     cout << "\n";
-    // Esto pausa el programa antes de que se cierre
-    system("pause"); 
-    
+    system("pause");
+
     return 0;
 }
