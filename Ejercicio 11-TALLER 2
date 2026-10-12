@@ -1,0 +1,62 @@
+#include <iostream>
+#include <cstdlib> 
+
+using namespace std;
+
+int main() {
+    float peso, distancia, tarifa;
+    int zona;
+    char fragil;
+
+    // Pedir los datos al usuario
+    cout << "Ingresa el peso en kg: ";
+    cin >> peso;
+    
+    cout << "Ingresa la distancia en km: ";
+    cin >> distancia;
+    
+    cout << "Ingresa la zona (1 para nacional, 2 para internacional): ";
+    cin >> zona;
+    
+    cout << "Es un paquete fragil? (S/N): ";
+    cin >> fragil;
+
+    // --- EMPIEZAN LAS VALIDACIONES ---
+    if (peso <= 0 || distancia <= 0) {
+        cout << "EEl peso y la distancia deben ser mayores que cero.\n";
+    } 
+    else if (peso > 30) {
+        cout << "El peso supera los 30 kg permitidos.\n";
+    } 
+    else if (zona != 1 && zona != 2) {
+        cout << " La zona no es valida (debe ser 1 o 2).\n";
+    } 
+    else if (fragil != 'S' && fragil != 's' && fragil != 'N' && fragil != 'n') {
+        cout << " Debes responder con S o N para indicar si es fragil.\n";
+    } 
+    else {
+        // --- HACEMOS LOS CALCULOS ---
+        
+        // Tarifa base + cobro por kg + cobro por km
+        tarifa = 8000 + (peso * 1200) + (distancia * 50);
+
+        // Si es internacional (zona 2), la tarifa se multiplica por 1.5
+        // (Usamos el operador ternario)
+        tarifa = (zona == 2) ? (tarifa * 1.5) : tarifa;
+
+        // Si es fragil ('S' o 's'), la tarifa se multiplica por 1.20
+        if (fragil == 'S' || fragil == 's') {
+            tarifa = tarifa * 1.20;
+        }
+
+        // Mostrar el total
+        cout << "\nCotizacion exitosa.\n";
+        cout << "El valor final a pagar es: $" << tarifa << "\n";
+    }
+
+    // Pausar para que no se cierre la pantalla
+    cout << "\n";
+    system("pause");
+
+    return 0;
+}
