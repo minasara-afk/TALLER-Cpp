@@ -1,0 +1,67 @@
+#include <iostream>
+#include <cstdlib> 
+
+using namespace std;
+
+int main() {
+    int dia, mes, anio;
+
+    cout << "Ingrese el dia: ";
+    cin >> dia;
+    cout << "Ingrese el mes (1-12): ";
+    cin >> mes;
+    cout << "Ingrese el anio: ";
+    cin >> anio;
+
+    //  el año debe ser positivo
+    if (anio <= 0) {
+        cout << "Error: El anio debe ser un numero positivo.\n";
+    } 
+    //  el mes debe existir (estar entre 1 y 12)
+    else if (mes < 1 || mes > 12) {
+        cout << "Error: El mes ingresado no es valido.\n";
+    } 
+    else {
+        int diasMes = 0;
+
+        // la cantidad de días del mes usando switch
+        switch (mes) {
+            // Meses con 31 días
+            case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+                diasMes = 31;
+                break;
+                
+            // Meses con 30 días
+            case 4: case 6: case 9: case 11:
+                diasMes = 30;
+                break;
+                
+            // Febrero (Mes 2)
+            case 2: {
+                // Un año es bisiesto si es múltiplo de 4, excepto si es múltiplo de 100, 
+                // a menos que también sea múltiplo de 400.
+                bool esBisiesto = (anio % 4 == 0 && anio % 100 != 0) || (anio % 400 == 0);
+                
+                // asignar 29 o 28 días
+                diasMes = esBisiesto ? 29 : 28;
+                break;
+            }
+        }
+
+        // el día debe estar entre 1 y el máximo de días de ese mes
+        if (dia < 1 || dia > diasMes) {
+            cout << "Error: El dia no es valido. Para el mes " << mes << " del anio " << anio 
+                 << ", el dia debe estar entre 1 y " << diasMes << ".\n";
+        } 
+        else {
+            cout << "\nLa fecha ingresada es VALIDA.\n";
+            cout << "El mes " << mes << " tiene " << diasMes << " dias.\n";
+        }
+    }
+
+    cout << "\n";
+    // Esto pausa el programa antes de que se cierre
+    system("pause"); 
+    
+    return 0;
+}
